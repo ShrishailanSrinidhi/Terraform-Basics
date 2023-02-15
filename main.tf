@@ -1,9 +1,9 @@
-data "aws_ami" "app_ami" {
+data "aws_ami" "ubuntu" {
   most_recent = true
 
   filter {
-    name   = "name"
-    values = ["bitnami-tomcat-*-x86_64-hvm-ebs-nami"]
+    name   = "Terraform-Trial1"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 
   filter {
@@ -11,12 +11,12 @@ data "aws_ami" "app_ami" {
     values = ["hvm"]
   }
 
-  owners = ["979382823631"] # Bitnami
+  owners = ["099720109477"] # Canonical
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.app_ami.id
-  instance_type = "t3.nano"
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
 
   tags = {
     Name = "HelloWorld"
